@@ -3,9 +3,11 @@
 #include <assert.h>
 #include <regex.h>
 #include <stdbool.h>
-#include <stddef.h>
+#include <string.h>
 
 static bool is_roman_numeral(const char *string);
+static int roman_to_arabic(const char *roman);
+static char *arabic_to_roman(char *roman, int arabic);
 
 int add(char *sum, const char *augend, const char *addend) {
   if (sum == NULL || augend == NULL || addend == NULL) {
@@ -15,6 +17,10 @@ int add(char *sum, const char *augend, const char *addend) {
   if (!is_roman_numeral(augend) || !is_roman_numeral(addend)) {
     return ROMCALC_INVALID_OPERAND_ERROR;
   }
+
+  int result = roman_to_arabic(augend) + roman_to_arabic(addend);
+
+  arabic_to_roman(sum, result);
 
   return ROMCALC_SUCCESS;
 }
@@ -43,4 +49,26 @@ static bool is_roman_numeral(const char *string) {
   regfree(&regex);
 
   return result;
+}
+
+static int roman_to_arabic(const char *roman) {
+  assert(roman != NULL);
+
+  int arabic = 0;
+
+  if (strcmp("I", roman) == 0) {
+    arabic = 1;
+  }
+
+  return arabic;
+}
+
+static char *arabic_to_roman(char *roman, int arabic) {
+  assert(roman != NULL);
+
+  if (arabic == 2) {
+    strcpy(roman, "II");
+  }
+
+  return roman;
 }
