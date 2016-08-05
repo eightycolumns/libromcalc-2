@@ -58,6 +58,8 @@ static int roman_to_arabic(const char *roman) {
 
   if (strcmp("I", roman) == 0) {
     arabic = 1;
+  } else if (strcmp("II", roman) == 0) {
+    arabic = 2;
   }
 
   return arabic;
@@ -68,6 +70,8 @@ static char *arabic_to_roman(char *roman, int arabic) {
 
   if (arabic == 2) {
     strcpy(roman, "II");
+  } else if (arabic == 3) {
+    strcpy(roman, "III");
   }
 
   return roman;
