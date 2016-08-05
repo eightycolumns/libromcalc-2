@@ -180,6 +180,7 @@ static TCase *success(void);
 static TCase *null_pointer_error(void);
 static TCase *invalid_operand_error(void);
 static TCase *addition(void);
+static TCase *subtraction(void);
 
 int main(void) {
   Suite *error_handling = suite_create("Error Handling");
@@ -187,16 +188,9 @@ int main(void) {
   suite_add_tcase(error_handling, null_pointer_error());
   suite_add_tcase(error_handling, invalid_operand_error());
 
-  TCase *subtraction = tcase_create("Subtraction");
-  tcase_add_test(subtraction, X_minus_I_is_IX);
-  tcase_add_test(subtraction, IX_minus_IV_is_V);
-  tcase_add_test(subtraction, V_minus_I_is_IV);
-  tcase_add_test(subtraction, IV_minus_II_is_II);
-  tcase_add_test(subtraction, II_minus_I_is_I);
-
   Suite *operations = suite_create("Operations");
   suite_add_tcase(operations, addition());
-  suite_add_tcase(operations, subtraction);
+  suite_add_tcase(operations, subtraction());
 
   SRunner *srunner = srunner_create(error_handling);
   srunner_add_suite(srunner, operations);
@@ -253,4 +247,15 @@ static TCase *addition(void) {
   tcase_add_test(addition, IX_plus_I_is_X);
 
   return addition;
+}
+
+static TCase *subtraction(void) {
+  TCase *subtraction = tcase_create("Subtraction");
+  tcase_add_test(subtraction, X_minus_I_is_IX);
+  tcase_add_test(subtraction, IX_minus_IV_is_V);
+  tcase_add_test(subtraction, V_minus_I_is_IV);
+  tcase_add_test(subtraction, IV_minus_II_is_II);
+  tcase_add_test(subtraction, II_minus_I_is_I);
+
+  return subtraction;
 }
