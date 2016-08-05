@@ -122,6 +122,12 @@ START_TEST(IX_plus_I_is_X) {
   ck_assert_str_eq(expected, actual);
 } END_TEST
 
+START_TEST(X_minus_I_is_IX) {
+  char expected[] = "IX";
+  subtract(actual, "X", "I");
+  ck_assert_str_eq(expected, actual);
+} END_TEST
+
 int main(void) {
   TCase *success = tcase_create("Success");
   tcase_add_test(success, I_is_a_valid_operand);
@@ -152,8 +158,12 @@ int main(void) {
   tcase_add_test(addition, V_plus_IV_is_IX);
   tcase_add_test(addition, IX_plus_I_is_X);
 
+  TCase *subtraction = tcase_create("Subtraction");
+  tcase_add_test(subtraction, X_minus_I_is_IX);
+
   Suite *operations = suite_create("Operations");
   suite_add_tcase(operations, addition);
+  suite_add_tcase(operations, subtraction);
 
   SRunner *srunner = srunner_create(error_handling);
   srunner_add_suite(srunner, operations);

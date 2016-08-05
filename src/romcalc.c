@@ -30,6 +30,10 @@ int subtract(char *difference, const char *minuend, const char *subtrahend) {
     return ROMCALC_NULL_POINTER_ERROR;
   }
 
+  int result = roman_to_arabic(minuend) - roman_to_arabic(subtrahend);
+
+  arabic_to_roman(difference, result);
+
   return ROMCALC_SUCCESS;
 }
 
@@ -68,6 +72,8 @@ static int roman_to_arabic(const char *roman) {
     arabic = 5;
   } else if (strcmp("IX", roman) == 0) {
     arabic = 9;
+  } else if (strcmp("X", roman) == 0) {
+    arabic = 10;
   }
 
   return arabic;
