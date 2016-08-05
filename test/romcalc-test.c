@@ -178,18 +178,13 @@ START_TEST(II_minus_I_is_I) {
 
 static TCase *success(void);
 static TCase *null_pointer_error(void);
+static TCase *invalid_operand_error(void);
 
 int main(void) {
-  TCase *invalid_operand_error = tcase_create("Invalid Operand Error");
-  tcase_add_test(invalid_operand_error, IIII_is_an_invalid_operand);
-  tcase_add_test(invalid_operand_error, VV_is_an_invalid_operand);
-  tcase_add_test(invalid_operand_error, IIV_is_an_invalid_operand);
-  tcase_add_test(invalid_operand_error, VX_is_an_invalid_operand);
-
   Suite *error_handling = suite_create("Error Handling");
   suite_add_tcase(error_handling, success());
   suite_add_tcase(error_handling, null_pointer_error());
-  suite_add_tcase(error_handling, invalid_operand_error);
+  suite_add_tcase(error_handling, invalid_operand_error());
 
   TCase *addition = tcase_create("Addition");
   tcase_add_test(addition, I_plus_I_is_II);
@@ -243,4 +238,14 @@ static TCase *null_pointer_error(void) {
   tcase_add_test(null_pointer_error, subtrahend_cannot_be_NULL);
 
   return null_pointer_error;
+}
+
+static TCase *invalid_operand_error(void) {
+  TCase *invalid_operand_error = tcase_create("Invalid Operand Error");
+  tcase_add_test(invalid_operand_error, IIII_is_an_invalid_operand);
+  tcase_add_test(invalid_operand_error, VV_is_an_invalid_operand);
+  tcase_add_test(invalid_operand_error, IIV_is_an_invalid_operand);
+  tcase_add_test(invalid_operand_error, VX_is_an_invalid_operand);
+
+  return invalid_operand_error;
 }
