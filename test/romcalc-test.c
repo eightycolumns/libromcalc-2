@@ -14,6 +14,12 @@ START_TEST(I_is_a_valid_operand) {
   ck_assert_int_eq(expected, actual);
 } END_TEST
 
+START_TEST(II_is_a_valid_operand) {
+  int expected = ROMCALC_SUCCESS;
+  int actual = add(sum, "II", "I");
+  ck_assert_int_eq(expected, actual);
+} END_TEST
+
 START_TEST(sum_cannot_be_NULL) {
   int expected = ROMCALC_NULL_POINTER_ERROR;
   int actual = add(NULL, "I", "I");
@@ -59,6 +65,7 @@ START_TEST(I_plus_I_is_II) {
 int main(void) {
   TCase *success = tcase_create("Success");
   tcase_add_test(success, I_is_a_valid_operand);
+  tcase_add_test(success, II_is_a_valid_operand);
 
   TCase *null_pointer_error = tcase_create("Null Pointer Error");
   tcase_add_test(null_pointer_error, sum_cannot_be_NULL);
