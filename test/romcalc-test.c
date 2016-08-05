@@ -176,16 +176,9 @@ START_TEST(II_minus_I_is_I) {
   ck_assert_str_eq(expected, actual);
 } END_TEST
 
-int main(void) {
-  TCase *success = tcase_create("Success");
-  tcase_add_test(success, I_is_a_valid_operand);
-  tcase_add_test(success, II_is_a_valid_operand);
-  tcase_add_test(success, III_is_a_valid_operand);
-  tcase_add_test(success, IV_is_a_valid_operand);
-  tcase_add_test(success, V_is_a_valid_operand);
-  tcase_add_test(success, IX_is_a_valid_operand);
-  tcase_add_test(success, X_is_a_valid_operand);
+static TCase *success(void);
 
+int main(void) {
   TCase *null_pointer_error = tcase_create("Null Pointer Error");
   tcase_add_test(null_pointer_error, sum_cannot_be_NULL);
   tcase_add_test(null_pointer_error, augend_cannot_be_NULL);
@@ -201,7 +194,7 @@ int main(void) {
   tcase_add_test(invalid_operand_error, VX_is_an_invalid_operand);
 
   Suite *error_handling = suite_create("Error Handling");
-  suite_add_tcase(error_handling, success);
+  suite_add_tcase(error_handling, success());
   suite_add_tcase(error_handling, null_pointer_error);
   suite_add_tcase(error_handling, invalid_operand_error);
 
@@ -232,4 +225,17 @@ int main(void) {
   srunner_free(srunner);
 
   return (ntests_failed > 0) ? EXIT_FAILURE : EXIT_SUCCESS;
+}
+
+static TCase *success(void) {
+  TCase *success = tcase_create("Success");
+  tcase_add_test(success, I_is_a_valid_operand);
+  tcase_add_test(success, II_is_a_valid_operand);
+  tcase_add_test(success, III_is_a_valid_operand);
+  tcase_add_test(success, IV_is_a_valid_operand);
+  tcase_add_test(success, V_is_a_valid_operand);
+  tcase_add_test(success, IX_is_a_valid_operand);
+  tcase_add_test(success, X_is_a_valid_operand);
+
+  return success;
 }
