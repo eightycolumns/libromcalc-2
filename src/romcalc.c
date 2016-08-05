@@ -82,7 +82,9 @@ static int roman_to_arabic(const char *roman) {
 static char *arabic_to_roman(char *roman, int arabic) {
   assert(roman != NULL);
 
-  if (arabic == 2) {
+  if (arabic == 1) {
+    strcpy(roman, "I");
+  } else if (arabic == 2) {
     strcpy(roman, "II");
   } else if (arabic == 3) {
     strcpy(roman, "III");
