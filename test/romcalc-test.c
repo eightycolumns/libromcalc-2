@@ -86,6 +86,12 @@ START_TEST(subtrahend_cannot_be_NULL) {
   ck_assert_int_eq(expected, actual);
 } END_TEST
 
+START_TEST(IIII_is_an_invalid_operand) {
+  int expected = ROMCALC_INVALID_OPERAND_ERROR;
+  int actual = add(sum, "IIII", "I");
+  ck_assert_int_eq(expected, actual);
+} END_TEST
+
 START_TEST(I_plus_I_is_II) {
   char expected[] = "II";
   add(actual, "I", "I");
@@ -170,9 +176,13 @@ int main(void) {
   tcase_add_test(null_pointer_error, minuend_cannot_be_NULL);
   tcase_add_test(null_pointer_error, subtrahend_cannot_be_NULL);
 
+  TCase *invalid_operand_error = tcase_create("Invalid Operand Error");
+  tcase_add_test(invalid_operand_error, IIII_is_an_invalid_operand);
+
   Suite *error_handling = suite_create("Error Handling");
   suite_add_tcase(error_handling, success);
   suite_add_tcase(error_handling, null_pointer_error);
+  suite_add_tcase(error_handling, invalid_operand_error);
 
   TCase *addition = tcase_create("Addition");
   tcase_add_test(addition, I_plus_I_is_II);
