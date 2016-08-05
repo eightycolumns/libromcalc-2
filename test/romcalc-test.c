@@ -18,10 +18,17 @@ START_TEST(augend_cannot_be_NULL) {
   ck_assert_int_eq(expected, actual);
 } END_TEST
 
+START_TEST(addend_cannot_be_NULL) {
+  int expected = ROMCALC_NULL_POINTER_ERROR;
+  int actual = add(sum, "I", NULL);
+  ck_assert_int_eq(expected, actual);
+} END_TEST
+
 int main(void) {
   TCase *null_pointer_error = tcase_create("Null Pointer Error");
   tcase_add_test(null_pointer_error, sum_cannot_be_NULL);
   tcase_add_test(null_pointer_error, augend_cannot_be_NULL);
+  tcase_add_test(null_pointer_error, addend_cannot_be_NULL);
 
   Suite *error_handling = suite_create("Error Handling");
   suite_add_tcase(error_handling, null_pointer_error);
