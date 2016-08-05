@@ -86,6 +86,12 @@ START_TEST(III_plus_I_is_IV) {
   ck_assert_str_eq(expected, actual);
 } END_TEST
 
+START_TEST(IV_plus_I_is_V) {
+  char expected[] = "V";
+  add(actual, "IV", "I");
+  ck_assert_str_eq(expected, actual);
+} END_TEST
+
 int main(void) {
   TCase *success = tcase_create("Success");
   tcase_add_test(success, I_is_a_valid_operand);
@@ -109,6 +115,7 @@ int main(void) {
   tcase_add_test(addition, I_plus_I_is_II);
   tcase_add_test(addition, II_plus_I_is_III);
   tcase_add_test(addition, III_plus_I_is_IV);
+  tcase_add_test(addition, IV_plus_I_is_V);
 
   Suite *operations = suite_create("Operations");
   suite_add_tcase(operations, addition);
