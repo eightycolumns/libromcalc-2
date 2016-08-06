@@ -37,9 +37,22 @@ int roman_to_arabic(const char *roman) {
 char *arabic_to_roman(char *roman, int arabic) {
   assert(roman != NULL);
 
+  Numeral numerals[] = {
+    {"X", 10},
+    {"IX", 9},
+    {"V", 5},
+    {"IV", 4},
+    {"I", 1}
+  };
+
+  size_t numeral_count = sizeof numerals / sizeof numerals[0];
+
+  strcpy(roman, "");
+
   for (size_t i = 0; i < numeral_count; i += 1) {
-    if (arabic == numerals[i].value) {
-      strcpy(roman, numerals[i].key);
+    while (arabic >= numerals[i].value) {
+      strcat(roman, numerals[i].key);
+      arabic -= numerals[i].value;
     }
   }
 
