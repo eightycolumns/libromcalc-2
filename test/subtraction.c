@@ -6,6 +6,12 @@
 
 static char actual[ROMCALC_MAX_LENGTH];
 
+START_TEST(M_minus_C_is_CM) {
+  char expected[] = "CM";
+  subtract(actual, "M", "C");
+  ck_assert_str_eq(expected, actual);
+} END_TEST
+
 START_TEST(C_minus_X_is_XC) {
   char expected[] = "XC";
   subtract(actual, "C", "X");
@@ -68,6 +74,7 @@ START_TEST(II_minus_I_is_I) {
 
 TCase *subtraction(void) {
   TCase *subtraction = tcase_create("Subtraction");
+  tcase_add_test(subtraction, M_minus_C_is_CM);
   tcase_add_test(subtraction, C_minus_X_is_XC);
   tcase_add_test(subtraction, XC_minus_XL_is_L);
   tcase_add_test(subtraction, L_minus_X_is_XL);
