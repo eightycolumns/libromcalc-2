@@ -114,6 +114,12 @@ START_TEST(II_minus_I_is_I) {
   ck_assert_str_eq(expected, actual);
 } END_TEST
 
+START_TEST(mmmcccxxxiii_minus_mmccxxii_is_MCXI) {
+  char expected[] = "MCXI";
+  subtract(actual, "mmmcccxxxiii", "mmccxxii");
+  ck_assert_str_eq(expected, actual);
+} END_TEST
+
 TCase *subtraction(void) {
   TCase *subtraction = tcase_create("Subtraction");
   tcase_add_test(subtraction, MMMCMXCIX_minus_CXI_is_MMMDCCCLXXXVIII);
@@ -134,6 +140,7 @@ TCase *subtraction(void) {
   tcase_add_test(subtraction, V_minus_I_is_IV);
   tcase_add_test(subtraction, IV_minus_II_is_II);
   tcase_add_test(subtraction, II_minus_I_is_I);
+  tcase_add_test(subtraction, mmmcccxxxiii_minus_mmccxxii_is_MCXI);
 
   return subtraction;
 }
