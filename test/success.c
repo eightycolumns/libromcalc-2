@@ -159,29 +159,35 @@ START_TEST(mmmcmxcix_is_a_valid_operand) {
 
 TCase *success(void) {
   TCase *success = tcase_create("Success");
+
   tcase_add_test(success, I_is_a_valid_operand);
   tcase_add_test(success, II_is_a_valid_operand);
   tcase_add_test(success, III_is_a_valid_operand);
   tcase_add_test(success, IV_is_a_valid_operand);
   tcase_add_test(success, V_is_a_valid_operand);
   tcase_add_test(success, IX_is_a_valid_operand);
+
   tcase_add_test(success, X_is_a_valid_operand);
   tcase_add_test(success, XX_is_a_valid_operand);
   tcase_add_test(success, XXX_is_a_valid_operand);
   tcase_add_test(success, XL_is_a_valid_operand);
   tcase_add_test(success, L_is_a_valid_operand);
   tcase_add_test(success, XC_is_a_valid_operand);
+
   tcase_add_test(success, C_is_a_valid_operand);
   tcase_add_test(success, CC_is_a_valid_operand);
   tcase_add_test(success, CCC_is_a_valid_operand);
   tcase_add_test(success, CD_is_a_valid_operand);
   tcase_add_test(success, D_is_a_valid_operand);
   tcase_add_test(success, CM_is_a_valid_operand);
+
   tcase_add_test(success, M_is_a_valid_operand);
   tcase_add_test(success, MM_is_a_valid_operand);
   tcase_add_test(success, MMM_is_a_valid_operand);
+
   tcase_add_test(success, MMMDCCCLXXXVIII_is_a_valid_operand);
   tcase_add_test(success, mmmdccclxxxviii_is_a_valid_operand);
+
   tcase_add_test(success, MMMCMXCIX_is_a_valid_operand);
   tcase_add_test(success, mmmcmxcix_is_a_valid_operand);
 
