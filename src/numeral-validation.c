@@ -9,6 +9,7 @@
 static bool is_empty_string(const char *string);
 static bool is_mixed_case(const char *string);
 static bool includes_lowercase(const char *string);
+static bool includes_uppercase(const char *string);
 
 bool is_roman_numeral(const char *string) {
   assert(string != NULL);
@@ -43,16 +44,7 @@ static bool is_empty_string(const char *string) {
 
 static bool is_mixed_case(const char *string) {
   assert(string != NULL);
-
-  bool string_includes_uppercase = false;
-
-  for (size_t i = 0; i < strlen(string); i += 1) {
-    if (isupper(string[i])) {
-      string_includes_uppercase = true;
-    }
-  }
-
-  return includes_lowercase(string) && string_includes_uppercase;
+  return includes_lowercase(string) && includes_uppercase(string);
 }
 
 static bool includes_lowercase(const char *string) {
@@ -60,6 +52,18 @@ static bool includes_lowercase(const char *string) {
 
   for (size_t i = 0; i < strlen(string); i += 1) {
     if (islower(string[i])) {
+      return true;
+    }
+  }
+
+  return false;
+}
+
+static bool includes_uppercase(const char *string) {
+  assert(string != NULL);
+
+  for (size_t i = 0; i < strlen(string); i += 1) {
+    if (isupper(string[i])) {
       return true;
     }
   }
