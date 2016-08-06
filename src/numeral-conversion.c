@@ -21,6 +21,7 @@ static size_t numeral_count = sizeof numerals / sizeof numerals[0];
 
 static char *substring(char *dest, const char *src, size_t n);
 static bool numerals_array_includes(const char *key);
+static Numeral *find_numeral_by(const char *key);
 static int value_of(const char *key);
 
 int roman_to_arabic(const char *roman) {
@@ -76,27 +77,24 @@ static char *substring(char *dest, const char *src, size_t n) {
 
 static bool numerals_array_includes(const char *key) {
   assert(key != NULL);
+  return find_numeral_by(key) != NULL;
+}
+
+static Numeral *find_numeral_by(const char *key) {
+  assert(key != NULL);
 
   for (size_t i = 0; i < numeral_count; i += 1) {
     if (strcmp(key, numerals[i].key) == 0) {
-      return true;
+      return &numerals[i];
     }
   }
 
-  return false;
+  return NULL;
 }
 
 static int value_of(const char *key) {
   assert(key != NULL);
   assert(numerals_array_includes(key));
 
-  int value = 0;
-
-  for (size_t i = 0; i < numeral_count; i += 1) {
-    if (strcmp(key, numerals[i].key) == 0) {
-      value = numerals[i].value;
-    }
-  }
-
-  return value;
+  return find_numeral_by(key)->value;
 }
