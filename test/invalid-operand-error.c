@@ -98,20 +98,26 @@ START_TEST(MmCcXxIi_is_an_invalid_operand) {
 
 TCase *invalid_operand_error(void) {
   TCase *invalid_operand_error = tcase_create("Invalid Operand Error");
+
   tcase_add_test(invalid_operand_error, the_empty_string_is_an_invalid_operand);
+
   tcase_add_test(invalid_operand_error, IIII_is_an_invalid_operand);
   tcase_add_test(invalid_operand_error, VV_is_an_invalid_operand);
   tcase_add_test(invalid_operand_error, IIV_is_an_invalid_operand);
   tcase_add_test(invalid_operand_error, VX_is_an_invalid_operand);
+
   tcase_add_test(invalid_operand_error, XXXX_is_an_invalid_operand);
   tcase_add_test(invalid_operand_error, LL_is_an_invalid_operand);
   tcase_add_test(invalid_operand_error, XXL_is_an_invalid_operand);
   tcase_add_test(invalid_operand_error, LC_is_an_invalid_operand);
+
   tcase_add_test(invalid_operand_error, CCCC_is_an_invalid_operand);
   tcase_add_test(invalid_operand_error, DD_is_an_invalid_operand);
   tcase_add_test(invalid_operand_error, CCD_is_an_invalid_operand);
   tcase_add_test(invalid_operand_error, DM_is_an_invalid_operand);
+
   tcase_add_test(invalid_operand_error, MMMM_is_an_invalid_operand);
+
   tcase_add_test(invalid_operand_error, MmCcXxIi_is_an_invalid_operand);
 
   return invalid_operand_error;
