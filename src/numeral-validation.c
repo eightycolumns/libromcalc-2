@@ -3,10 +3,14 @@
 #include <assert.h>
 #include <regex.h>
 #include <stdbool.h>
-#include <stddef.h>
+#include <string.h>
 
 bool is_roman_numeral(const char *string) {
   assert(string != NULL);
+
+  if (strcmp("", string) == 0) {
+    return false;
+  }
 
   regex_t regex;
 
