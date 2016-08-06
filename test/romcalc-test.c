@@ -2,7 +2,6 @@
 
 #include <check.h>
 
-#include "src/romcalc.h"
 #include "test/error-handling.h"
 #include "test/operations.h"
 
