@@ -5,10 +5,12 @@
 #include <stdbool.h>
 #include <string.h>
 
+static bool is_empty_string(const char *string);
+
 bool is_roman_numeral(const char *string) {
   assert(string != NULL);
 
-  if (strcmp("", string) == 0) {
+  if (is_empty_string(string)) {
     return false;
   }
 
@@ -25,4 +27,9 @@ bool is_roman_numeral(const char *string) {
   regfree(&regex);
 
   return result;
+}
+
+static bool is_empty_string(const char *string) {
+  assert(string != NULL);
+  return strcmp("", string) == 0;
 }
