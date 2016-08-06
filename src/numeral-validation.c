@@ -7,6 +7,7 @@
 #include <string.h>
 
 static bool is_empty_string(const char *string);
+static bool is_mixed_case(const char *string);
 
 bool is_roman_numeral(const char *string) {
   assert(string != NULL);
@@ -15,20 +16,7 @@ bool is_roman_numeral(const char *string) {
     return false;
   }
 
-  bool string_includes_lowercase = false;
-  bool string_includes_uppercase = false;
-
-  for (size_t i = 0; i < strlen(string); i += 1) {
-    if (islower(string[i])) {
-      string_includes_lowercase = true;
-    }
-
-    if (isupper(string[i])) {
-      string_includes_uppercase = true;
-    }
-  }
-
-  if (string_includes_lowercase && string_includes_uppercase) {
+  if (is_mixed_case(string)) {
     return false;
   }
 
@@ -50,4 +38,23 @@ bool is_roman_numeral(const char *string) {
 static bool is_empty_string(const char *string) {
   assert(string != NULL);
   return strcmp("", string) == 0;
+}
+
+static bool is_mixed_case(const char *string) {
+  assert(string != NULL);
+
+  bool string_includes_lowercase = false;
+  bool string_includes_uppercase = false;
+
+  for (size_t i = 0; i < strlen(string); i += 1) {
+    if (islower(string[i])) {
+      string_includes_lowercase = true;
+    }
+
+    if (isupper(string[i])) {
+      string_includes_uppercase = true;
+    }
+  }
+
+  return string_includes_lowercase && string_includes_uppercase;
 }
