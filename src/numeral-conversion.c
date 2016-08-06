@@ -30,8 +30,9 @@ int roman_to_arabic(const char *roman) {
   int arabic = 0;
 
   size_t i = 0;
+  size_t roman_length = strlen(roman);
 
-  while (i < strlen(roman)) {
+  while (i < roman_length) {
     char two_char_substring[3];
     substring(two_char_substring, &roman[i], 2);
 
