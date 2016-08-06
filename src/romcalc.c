@@ -89,20 +89,10 @@ static int roman_to_arabic(const char *roman) {
 static char *arabic_to_roman(char *roman, int arabic) {
   assert(roman != NULL);
 
-  if (arabic == 1) {
-    strcpy(roman, "I");
-  } else if (arabic == 2) {
-    strcpy(roman, "II");
-  } else if (arabic == 3) {
-    strcpy(roman, "III");
-  } else if (arabic == 4) {
-    strcpy(roman, "IV");
-  } else if (arabic == 5) {
-    strcpy(roman, "V");
-  } else if (arabic == 9) {
-    strcpy(roman, "IX");
-  } else if (arabic == 10) {
-    strcpy(roman, "X");
+  for (size_t i = 0; i < numeral_count; i += 1) {
+    if (arabic == numerals[i].value) {
+      strcpy(roman, numerals[i].key);
+    }
   }
 
   return roman;
