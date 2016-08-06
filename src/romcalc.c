@@ -1,9 +1,9 @@
 #include "src/romcalc.h"
 
 #include <assert.h>
-#include <regex.h>
-#include <stdbool.h>
 #include <string.h>
+
+#include "src/numeral-validation.h"
 
 typedef struct {
   char *key;
@@ -22,7 +22,6 @@ static Numeral numerals[] = {
 
 static size_t numeral_count = sizeof numerals / sizeof numerals[0];
 
-static bool is_roman_numeral(const char *string);
 static int roman_to_arabic(const char *roman);
 static char *arabic_to_roman(char *roman, int arabic);
 
@@ -52,24 +51,6 @@ int subtract(char *difference, const char *minuend, const char *subtrahend) {
   arabic_to_roman(difference, result);
 
   return ROMCALC_SUCCESS;
-}
-
-static bool is_roman_numeral(const char *string) {
-  assert(string != NULL);
-
-  regex_t regex;
-
-  char pattern[] = "^X?(V?I{0,3}|I[VX])$";
-
-  if (regcomp(&regex, pattern, REG_EXTENDED|REG_NOSUB) != 0) {
-    return false;
-  }
-
-  bool result = (regexec(&regex, string, 0, NULL, 0) == 0);
-
-  regfree(&regex);
-
-  return result;
 }
 
 static int roman_to_arabic(const char *roman) {
