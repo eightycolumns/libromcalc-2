@@ -1,29 +1,9 @@
 #include "src/romcalc.h"
 
-#include <assert.h>
-#include <string.h>
+#include <stddef.h>
 
 #include "src/numeral-validation.h"
-
-typedef struct {
-  char *key;
-  int value;
-} Numeral;
-
-static Numeral numerals[] = {
-  {"I", 1},
-  {"II", 2},
-  {"III", 3},
-  {"IV", 4},
-  {"V", 5},
-  {"IX", 9},
-  {"X", 10}
-};
-
-static size_t numeral_count = sizeof numerals / sizeof numerals[0];
-
-static int roman_to_arabic(const char *roman);
-static char *arabic_to_roman(char *roman, int arabic);
+#include "src/numeral-conversion.h"
 
 int add(char *sum, const char *augend, const char *addend) {
   if (sum == NULL || augend == NULL || addend == NULL) {
@@ -51,30 +31,4 @@ int subtract(char *difference, const char *minuend, const char *subtrahend) {
   arabic_to_roman(difference, result);
 
   return ROMCALC_SUCCESS;
-}
-
-static int roman_to_arabic(const char *roman) {
-  assert(roman != NULL);
-
-  int arabic = 0;
-
-  for (size_t i = 0; i < numeral_count; i += 1) {
-    if (strcmp(roman, numerals[i].key) == 0) {
-      arabic = numerals[i].value;
-    }
-  }
-
-  return arabic;
-}
-
-static char *arabic_to_roman(char *roman, int arabic) {
-  assert(roman != NULL);
-
-  for (size_t i = 0; i < numeral_count; i += 1) {
-    if (arabic == numerals[i].value) {
-      strcpy(roman, numerals[i].key);
-    }
-  }
-
-  return roman;
 }
