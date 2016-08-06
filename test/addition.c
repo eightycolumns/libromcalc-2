@@ -146,28 +146,33 @@ START_TEST(mcxi_plus_mmccxxii_is_MMMCCCXXXIII) {
 
 TCase *addition(void) {
   TCase *addition = tcase_create("Addition");
+
   tcase_add_test(addition, I_plus_I_is_II);
   tcase_add_test(addition, II_plus_I_is_III);
   tcase_add_test(addition, III_plus_I_is_IV);
   tcase_add_test(addition, IV_plus_I_is_V);
   tcase_add_test(addition, V_plus_IV_is_IX);
   tcase_add_test(addition, IX_plus_I_is_X);
+
   tcase_add_test(addition, X_plus_X_is_XX);
   tcase_add_test(addition, XX_plus_X_is_XXX);
   tcase_add_test(addition, XXX_plus_X_is_XL);
   tcase_add_test(addition, XL_plus_X_is_L);
   tcase_add_test(addition, L_plus_XL_is_XC);
   tcase_add_test(addition, XC_plus_X_is_C);
+
   tcase_add_test(addition, C_plus_C_is_CC);
   tcase_add_test(addition, CC_plus_C_is_CCC);
   tcase_add_test(addition, CCC_plus_C_is_CD);
   tcase_add_test(addition, CD_plus_C_is_D);
   tcase_add_test(addition, D_plus_CD_is_CM);
   tcase_add_test(addition, CM_plus_C_is_M);
+
   tcase_add_test(addition, M_plus_M_is_MM);
   tcase_add_test(addition, MM_plus_M_is_MMM);
   tcase_add_test(addition, MMM_plus_DCCCLXXXVIII_is_MMMDCCCLXXXVIII);
   tcase_add_test(addition, MMMDCCCLXXXVIII_plus_CXI_is_MMMCMXCIX);
+
   tcase_add_test(addition, mcxi_plus_mmccxxii_is_MMMCCCXXXIII);
 
   return addition;
