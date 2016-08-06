@@ -20,6 +20,7 @@ static Numeral numerals[] = {
 static size_t numeral_count = sizeof numerals / sizeof numerals[0];
 
 static char *substring(char *dest, const char *src, size_t n);
+static bool numerals_array_includes(const char *key);
 
 int roman_to_arabic(const char *roman) {
   assert(roman != NULL);
@@ -35,15 +36,7 @@ int roman_to_arabic(const char *roman) {
     char one_char_substring[2];
     substring(one_char_substring, &roman[i], 1);
 
-    bool numerals_array_includes_two_char_substring = false;
-
-    for (size_t j = 0; j < numeral_count; j += 1) {
-      if (strcmp(two_char_substring, numerals[j].key) == 0) {
-        numerals_array_includes_two_char_substring = true;
-      }
-    }
-
-    if (numerals_array_includes_two_char_substring) {
+    if (numerals_array_includes(two_char_substring)) {
       for (size_t k = 0; k < numeral_count; k += 1) {
         if (strcmp(two_char_substring, numerals[k].key) == 0) {
           arabic += numerals[k].value;
@@ -88,4 +81,16 @@ static char *substring(char *dest, const char *src, size_t n) {
   dest[n] = '\0';
 
   return dest;
+}
+
+static bool numerals_array_includes(const char *key) {
+  assert(key != NULL);
+
+  for (size_t i = 0; i < numeral_count; i += 1) {
+    if (strcmp(key, numerals[i].key) == 0) {
+      return true;
+    }
+  }
+
+  return false;
 }
