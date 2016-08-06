@@ -10,14 +10,11 @@
 #include "test/subtraction.h"
 
 static Suite *error_handling(void);
+static Suite *operations(void);
 
 int main(void) {
-  Suite *operations = suite_create("Operations");
-  suite_add_tcase(operations, addition());
-  suite_add_tcase(operations, subtraction());
-
   SRunner *srunner = srunner_create(error_handling());
-  srunner_add_suite(srunner, operations);
+  srunner_add_suite(srunner, operations());
 
   srunner_run_all(srunner, CK_ENV);
   int ntests_failed = srunner_ntests_failed(srunner);
@@ -33,4 +30,12 @@ static Suite *error_handling(void) {
   suite_add_tcase(error_handling, invalid_operand_error());
 
   return error_handling;
+}
+
+static Suite *operations(void) {
+  Suite *operations = suite_create("Operations");
+  suite_add_tcase(operations, addition());
+  suite_add_tcase(operations, subtraction());
+
+  return operations;
 }
