@@ -1,6 +1,6 @@
 #include "test/null-pointer-error.h"
 
-#include <stddef.h>
+#include <string.h>
 
 #include <check.h>
 
@@ -8,6 +8,11 @@
 
 static char sum[ROMCALC_MAX_LENGTH];
 static char difference[ROMCALC_MAX_LENGTH];
+
+static void setup(void) {
+  strcpy(sum, "");
+  strcpy(difference, "");
+}
 
 START_TEST(sum_cannot_be_NULL) {
   int expected = ROMCALC_NULL_POINTER_ERROR;
@@ -47,6 +52,7 @@ START_TEST(subtrahend_cannot_be_NULL) {
 
 TCase *null_pointer_error(void) {
   TCase *null_pointer_error = tcase_create("Null Pointer Error");
+  tcase_add_checked_fixture(null_pointer_error, setup, NULL);
 
   tcase_add_test(null_pointer_error, sum_cannot_be_NULL);
   tcase_add_test(null_pointer_error, augend_cannot_be_NULL);
