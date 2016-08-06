@@ -26,6 +26,10 @@ int subtract(char *difference, const char *minuend, const char *subtrahend) {
     return ROMCALC_NULL_POINTER_ERROR;
   }
 
+  if (!is_roman_numeral(minuend) || !is_roman_numeral(subtrahend)) {
+    return ROMCALC_INVALID_OPERAND_ERROR;
+  }
+
   int result = roman_to_arabic(minuend) - roman_to_arabic(subtrahend);
 
   arabic_to_roman(difference, result);
