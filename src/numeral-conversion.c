@@ -1,6 +1,7 @@
 #include "src/numeral-conversion.h"
 
 #include <assert.h>
+#include <ctype.h>
 #include <stdbool.h>
 #include <string.h>
 
@@ -11,36 +12,24 @@ typedef struct {
 
 static Numeral numerals[] = {
   {"M", 1000},
-  {"m", 1000},
   {"CM", 900},
-  {"cm", 900},
   {"D", 500},
-  {"d", 500},
   {"CD", 400},
-  {"cd", 400},
   {"C", 100},
-  {"c", 100},
   {"XC", 90},
-  {"xc", 90},
   {"L", 50},
-  {"l", 50},
   {"XL", 40},
-  {"xl", 40},
   {"X", 10},
-  {"x", 10},
   {"IX", 9},
-  {"ix", 9},
   {"V", 5},
-  {"v", 5},
   {"IV", 4},
-  {"iv", 4},
-  {"I", 1},
-  {"i", 1}
+  {"I", 1}
 };
 
 static size_t numeral_count = sizeof numerals / sizeof numerals[0];
 
 static char *substring(char *dest, const char *src, size_t n);
+static char *to_uppercase(char *string);
 static bool numerals_array_includes(const char *key);
 static Numeral *find_numeral_by(const char *key);
 static int value_of(const char *key);
@@ -56,9 +45,11 @@ int roman_to_arabic(const char *roman) {
   while (i < roman_length) {
     char two_char_substring[3];
     substring(two_char_substring, &roman[i], 2);
+    to_uppercase(two_char_substring);
 
     char one_char_substring[2];
     substring(one_char_substring, &roman[i], 1);
+    to_uppercase(one_char_substring);
 
     if (numerals_array_includes(two_char_substring)) {
       arabic += value_of(two_char_substring);
@@ -95,6 +86,18 @@ static char *substring(char *dest, const char *src, size_t n) {
   dest[n] = '\0';
 
   return dest;
+}
+
+static char *to_uppercase(char *string) {
+  assert(string != NULL);
+
+  size_t i = 0;
+
+  while ((string[i] = toupper(string[i])) != '\0') {
+    i += 1;
+  }
+
+  return string;
 }
 
 static bool numerals_array_includes(const char *key) {
