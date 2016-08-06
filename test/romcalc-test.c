@@ -4,46 +4,10 @@
 
 #include "src/romcalc.h"
 #include "test/success.h"
+#include "test/null-pointer-error.h"
 
 static char sum[ROMCALC_MAX_LENGTH];
-static char difference[ROMCALC_MAX_LENGTH];
 static char actual[ROMCALC_MAX_LENGTH];
-
-START_TEST(sum_cannot_be_NULL) {
-  int expected = ROMCALC_NULL_POINTER_ERROR;
-  int actual = add(NULL, "I", "I");
-  ck_assert_int_eq(expected, actual);
-} END_TEST
-
-START_TEST(augend_cannot_be_NULL) {
-  int expected = ROMCALC_NULL_POINTER_ERROR;
-  int actual = add(sum, NULL, "I");
-  ck_assert_int_eq(expected, actual);
-} END_TEST
-
-START_TEST(addend_cannot_be_NULL) {
-  int expected = ROMCALC_NULL_POINTER_ERROR;
-  int actual = add(sum, "I", NULL);
-  ck_assert_int_eq(expected, actual);
-} END_TEST
-
-START_TEST(difference_cannot_be_NULL) {
-  int expected = ROMCALC_NULL_POINTER_ERROR;
-  int actual = subtract(NULL, "II", "I");
-  ck_assert_int_eq(expected, actual);
-} END_TEST
-
-START_TEST(minuend_cannot_be_NULL) {
-  int expected = ROMCALC_NULL_POINTER_ERROR;
-  int actual = subtract(difference, NULL, "I");
-  ck_assert_int_eq(expected, actual);
-} END_TEST
-
-START_TEST(subtrahend_cannot_be_NULL) {
-  int expected = ROMCALC_NULL_POINTER_ERROR;
-  int actual = subtract(difference, "II", NULL);
-  ck_assert_int_eq(expected, actual);
-} END_TEST
 
 START_TEST(IIII_is_an_invalid_operand) {
   int expected = ROMCALC_INVALID_OPERAND_ERROR;
@@ -135,7 +99,6 @@ START_TEST(II_minus_I_is_I) {
   ck_assert_str_eq(expected, actual);
 } END_TEST
 
-static TCase *null_pointer_error(void);
 static TCase *invalid_operand_error(void);
 static TCase *addition(void);
 static TCase *subtraction(void);
@@ -158,18 +121,6 @@ int main(void) {
   srunner_free(srunner);
 
   return (ntests_failed > 0) ? EXIT_FAILURE : EXIT_SUCCESS;
-}
-
-static TCase *null_pointer_error(void) {
-  TCase *null_pointer_error = tcase_create("Null Pointer Error");
-  tcase_add_test(null_pointer_error, sum_cannot_be_NULL);
-  tcase_add_test(null_pointer_error, augend_cannot_be_NULL);
-  tcase_add_test(null_pointer_error, addend_cannot_be_NULL);
-  tcase_add_test(null_pointer_error, difference_cannot_be_NULL);
-  tcase_add_test(null_pointer_error, minuend_cannot_be_NULL);
-  tcase_add_test(null_pointer_error, subtrahend_cannot_be_NULL);
-
-  return null_pointer_error;
 }
 
 static TCase *invalid_operand_error(void) {
