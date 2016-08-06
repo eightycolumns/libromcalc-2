@@ -5,6 +5,8 @@
 #include <stdbool.h>
 #include <string.h>
 
+#include "src/numeral-validation.h"
+
 typedef struct {
   char *key;
   int value;
@@ -30,6 +32,7 @@ static int value_of(const char *key);
 
 int roman_to_arabic(const char *roman) {
   assert(roman != NULL);
+  assert(is_roman_numeral(roman));
 
   int arabic = 0;
 
