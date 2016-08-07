@@ -1,7 +1,7 @@
 MAKEFLAGS += -s
 
 export CC = gcc
-export CFLAGS = -std=c99 -pedantic -Wall -Wextra -Werror -O2
+export CFLAGS = -std=c99 -pedantic -Wall -Wextra -Werror -O2 -D NDEBUG
 
 export LIB_NAME = libromcalc.a
 export TEST_EXE = romcalc-test
