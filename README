@@ -1,0 +1,107 @@
+LIBROMCALC 2.0 (FERROUS FALCON)
+
+  This is a rewrite of libromcalc following initial submission and review.
+
+WHAT'S NEW?
+
+  1) My initial submission did not build in Ubuntu 14.04. I developed it in
+  Fedora, naively assuming it would work just as well in Ubuntu. It turns out
+  that Check is statically linked in Ubuntu, whereas it's dynamically linked in
+  Fedora. The solution was to install pkg-config, and then to change
+
+  LDFLAGS = -L$(BUILD_DIR)
+  LDLIBS = -l$(LIB_NAME:lib%.a=%) -lcheck
+
+  to
+
+  CFLAGS += $(shell pkg-config --cflags check)
+
+  LDFLAGS = -L$(BUILD_DIR)
+  LDLIBS = -l$(LIB_NAME:lib%.a=%)
+
+  LDFLAGS += $(shell pkg-config --libs-only-L check)
+  LDLIBS += $(shell pkg-config --libs-only-l check)
+
+  in test/makefile.
+
+  2) In my initial submission, the commits were too large. This time around, I
+  worked in smaller steps, typing out and committing intermediate steps I'd only
+  thought through before. For example, the conversion functions now start with
+  simple conditionals like
+
+  if (strcmp("I", roman) == 0) {
+    arabic = 1;
+  }
+
+  and
+
+  if (arabic == 2) {
+    strcpy(roman, "II");
+  }
+
+  before moving gradually toward their final forms.
+
+  3) In my initial submission, I developed error-handling first, then moved on
+  to operations. This time around, I interspersed development of error-handling
+  and operations, arriving first at a functioning calculator able to handle I-X,
+  then refactoring that calculator, and then expanding it to handle XI-C, CI-M,
+  and finally MI-MMMCMXCIX.
+
+DEPENDENCIES
+
+  First, install check:
+    apt-get install check
+
+  Then, install pkg-config:
+    apt-get install pkg-config
+
+BUILD
+
+  To build libromcalc.a and its test executable:
+    make
+
+  To run all tests:
+    make check
+
+  To return everything to its pre-build state:
+    make clean
+
+USAGE
+
+  Libromcalc provides functions to add and subtract Roman numerals.
+
+  The addition function has the signature
+    int add(char *sum, const char *augend, const char *addend);
+
+  It adds the Roman numeral addend to the Roman numeral augend and writes the
+  resulting Roman numeral to the buffer pointed to by sum. It returns 0 on
+  success, or an error code indicating the cause of failure.
+
+  The subtraction function has the signature
+    int subtract(char *difference, const char *minuend, const char *subtrahend);
+
+  It subtracts the Roman numeral subtrahend from the Roman numeral minuend and
+  writes the resulting Roman numeral to the buffer pointed to by difference. It
+  returns 0 on success, or an error code indicating the cause of failure.
+
+  Both add() and subtract()
+    - Accept uppercase and lowercase operands
+    - Reject mixed-case operands
+    - Write their results in uppercase regardless of their operands' cases
+
+  On failure, add() and subtract() return one of the following error codes:
+
+  ROMCALC_NULL_POINTER_ERROR
+    One or more arguments were null pointers.
+  ROMCALC_INVALID_OPERAND_ERROR
+    One or more operands were invalid Roman numerals.
+  ROMCALC_INVALID_RESULT_ERROR
+    Both operands were valid Roman numerals, but the result of the operation
+    could not be converted to a valid Roman numeral.
+
+  The macro ROMCALC_MAX_LENGTH represents the number of bytes needed to store the
+  longest possible Roman numeral, including the terminating null byte.
+
+  Recommended usage:
+    char sum[ROMCALC_MAX_LENGTH];
+    add(sum, "MDCLXVI", "MMCCXXII");
