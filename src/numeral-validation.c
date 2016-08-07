@@ -31,7 +31,9 @@ bool is_roman_numeral(const char *string) {
     "(V?I{0,3}|I[VX])$" // Ones
   ;
 
-  if (regcomp(&regex, pattern, REG_EXTENDED|REG_ICASE|REG_NOSUB) != 0) {
+  int flags = REG_EXTENDED|REG_ICASE|REG_NOSUB;
+
+  if (regcomp(&regex, pattern, flags) != 0) {
     return false;
   }
 
